@@ -10,5 +10,5 @@ export type DrawerParamList = {
 };
 
 export type MainTabsParamList = {
-	Feed: undefined;
+	FeedNavigator: undefined;
 };

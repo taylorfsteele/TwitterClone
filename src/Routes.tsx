@@ -1,20 +1,39 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { createStackNavigator, CardStyleInterpolators } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import Profile from "./Screens/Profile";
-import Preferences from "./Screens/Preferences";
+import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
+import { DrawerParamList, MainTabsParamList, RootStackParamList } from "./ParamLists";
 import Bookmarks from "./Screens/Bookmarks";
-import Feed from "./Screens/Feed";
-import { DrawerContent } from "./Screens/DrawerContent";
-import { RootStackParamList, MainTabsParamList, DrawerParamList } from "./ParamLists";
+import Details from "./Screens/Details";
+import DrawerContent from "./Screens/DrawerContent";
+import FeedList from "./Screens/FeedList";
+import Preferences from "./Screens/Preferences";
+import Profile from "./Screens/Profile";
+import Header from "./Components/Header";
+
+const FeedStack = createStackNavigator();
+const FeedNavigator = () => {
+	return (
+		<FeedStack.Navigator
+			initialRouteName="FeedList"
+			headerMode="screen"
+			screenOptions={{
+				header: ({ scene, previous, navigation }) => (
+					<Header scene={scene} previous={previous} navigation={navigation} />
+				),
+			}}
+		>
+			<FeedStack.Screen name="FeedList" component={FeedList} />
+			<FeedStack.Screen name="Details" component={Details} />
+		</FeedStack.Navigator>
+	);
+};
 
 const Tab = createMaterialBottomTabNavigator<MainTabsParamList>();
 const TabNavigator = () => {
 	return (
 		<Tab.Navigator>
-			<Tab.Screen name="Feed" component={Feed} />
+			<Tab.Screen name="FeedNavigator" component={FeedNavigator} />
 		</Tab.Navigator>
 	);
 };

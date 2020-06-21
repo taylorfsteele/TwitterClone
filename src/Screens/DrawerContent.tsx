@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { View, StyleSheet } from "react-native";
 import {
 	DrawerItem,
@@ -25,16 +25,17 @@ import { DrawerParamList, RootStackParamList } from "../ParamLists";
 type DrawerContentNavigationProp = CompositeNavigationProp<
 	MaterialBottomTabNavigationProp<DrawerParamList, "TabNavigator">,
 	CompositeNavigationProp<
-		DrawerNavigationProp<DrawerParamList>,
-		StackNavigationProp<RootStackParamList>
+		StackNavigationProp<RootStackParamList>,
+		DrawerNavigationProp<DrawerParamList>
 	>
 >;
 
-type Props = {
+type NavigationProps = {
 	navigation: DrawerContentNavigationProp;
 };
 
-export const DrawerContent = ({ navigation }: Props) => {
+//Incorrect typing, issue being fixed on React Navigation now. Can type with DrawerContentComponentProps
+const DrawerContent = ({ navigation }: NavigationProps) => {
 	return (
 		<DrawerContentScrollView>
 			<View style={styles.drawerContent}>
@@ -70,6 +71,36 @@ export const DrawerContent = ({ navigation }: Props) => {
 							navigation.navigate("Profile");
 						}}
 					/>
+					<DrawerItem
+						icon={({ color, size }) => (
+							<MaterialCommunityIcons name="tune" color={color} size={size} />
+						)}
+						label="Preferences"
+						onPress={() => {
+							navigation.closeDrawer();
+							navigation.navigate("Preferences");
+						}}
+					/>
+					<DrawerItem
+						icon={({ color, size }) => (
+							<MaterialCommunityIcons name="bookmark-outline" color={color} size={size} />
+						)}
+						label="Bookmarks"
+						onPress={() => {
+							navigation.closeDrawer();
+							navigation.navigate("Bookmarks");
+						}}
+					/>
+				</Drawer.Section>
+				<Drawer.Section title="Preferences">
+					<TouchableRipple onPress={() => {}}>
+						<View style={styles.preference}>
+							<Text>Dark Theme</Text>
+							<View pointerEvents="none">
+								<Switch value={false} />
+							</View>
+						</View>
+					</TouchableRipple>
 				</Drawer.Section>
 			</View>
 		</DrawerContentScrollView>
@@ -108,4 +139,12 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginRight: 3,
 	},
+	preference: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		paddingVertical: 12,
+		paddingHorizontal: 16,
+	},
 });
+
+export default DrawerContent;
