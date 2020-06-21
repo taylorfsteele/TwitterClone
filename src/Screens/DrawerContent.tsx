@@ -6,7 +6,6 @@ import {
 	DrawerNavigationProp,
 } from "@react-navigation/drawer";
 import {
-	useTheme,
 	Avatar,
 	Title,
 	Caption,

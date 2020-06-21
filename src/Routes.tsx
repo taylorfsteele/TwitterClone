@@ -10,6 +10,9 @@ import FeedList from "./Screens/FeedList";
 import Preferences from "./Screens/Preferences";
 import Profile from "./Screens/Profile";
 import Header from "./Components/Header";
+import Notifications from "./Screens/Notifications";
+import Messages from "./Screens/Messages";
+import { useTheme } from "react-native-paper";
 
 const FeedStack = createStackNavigator();
 const FeedNavigator = () => {
@@ -31,9 +34,37 @@ const FeedNavigator = () => {
 
 const Tab = createMaterialBottomTabNavigator<MainTabsParamList>();
 const TabNavigator = () => {
+	const { colors } = useTheme();
 	return (
-		<Tab.Navigator>
-			<Tab.Screen name="FeedNavigator" component={FeedNavigator} />
+		<Tab.Navigator
+			initialRouteName="FeedNavigator"
+			sceneAnimationEnabled={false}
+			shifting={true}
+			activeColor={colors.primary}
+			barStyle={{ backgroundColor: colors.surface }}
+		>
+			<Tab.Screen
+				name="FeedNavigator"
+				component={FeedNavigator}
+				options={{
+					title: "Feed",
+					tabBarIcon: "home-account",
+				}}
+			/>
+			<Tab.Screen
+				name="Notifications"
+				component={Notifications}
+				options={{
+					tabBarIcon: "bell-outline",
+				}}
+			/>
+			<Tab.Screen
+				name="Messages"
+				component={Messages}
+				options={{
+					tabBarIcon: "message-text-outline",
+				}}
+			/>
 		</Tab.Navigator>
 	);
 };

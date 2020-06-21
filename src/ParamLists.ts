@@ -11,4 +11,6 @@ export type DrawerParamList = {
 
 export type MainTabsParamList = {
 	FeedNavigator: undefined;
+	Notifications: undefined;
+	Messages: undefined;
 };
