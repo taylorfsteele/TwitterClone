@@ -19,7 +19,7 @@ import { CompositeNavigationProp } from "@react-navigation/native";
 import { MaterialBottomTabNavigationProp } from "@react-navigation/material-bottom-tabs";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { DrawerParamList, RootStackParamList } from "../ParamLists";
+import { DrawerParamList, RootStackParamList } from "../types";
 
 type DrawerContentNavigationProp = CompositeNavigationProp<
 	MaterialBottomTabNavigationProp<DrawerParamList, "TabNavigator">,

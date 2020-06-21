@@ -2,11 +2,11 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
-import { DrawerParamList, MainTabsParamList, RootStackParamList } from "./ParamLists";
+import { DrawerParamList, MainTabsParamList, RootStackParamList } from "./types";
 import Bookmarks from "./Screens/Bookmarks";
 import Details from "./Screens/Details";
 import DrawerContent from "./Screens/DrawerContent";
-import FeedList from "./Screens/FeedList";
+import MainFeed from "./Screens/MainFeed";
 import Preferences from "./Screens/Preferences";
 import Profile from "./Screens/Profile";
 import Header from "./Components/Header";
@@ -18,7 +18,7 @@ const FeedStack = createStackNavigator();
 const FeedNavigator = () => {
 	return (
 		<FeedStack.Navigator
-			initialRouteName="FeedList"
+			initialRouteName="MainFeed"
 			headerMode="screen"
 			screenOptions={{
 				header: ({ scene, previous, navigation }) => (
@@ -26,7 +26,7 @@ const FeedNavigator = () => {
 				),
 			}}
 		>
-			<FeedStack.Screen name="FeedList" component={FeedList} />
+			<FeedStack.Screen name="MainFeed" component={MainFeed} />
 			<FeedStack.Screen name="Details" component={Details} />
 		</FeedStack.Navigator>
 	);

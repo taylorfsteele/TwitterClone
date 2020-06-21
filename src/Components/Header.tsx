@@ -38,7 +38,7 @@ const Header: React.FC<StackHeaderProps> = ({ scene, previous, navigation }) => 
 			<Appbar.Content
 				style={{ alignItems: "center" }}
 				title={
-					title === "FeedList" ? (
+					title === "MainFeed" ? (
 						<MaterialCommunityIcons
 							style={{ marginRight: 10 }}
 							name="twitter"

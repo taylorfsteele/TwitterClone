@@ -10,6 +10,9 @@ const theme = {
 	colors: {
 		...DefaultTheme.colors,
 		primary: "rgb(29,161,242)",
+		iconColor: "rgba(0, 0, 0, 0.54)",
+		contentColor: "rgba(0, 0, 0, 0.8)",
+		imageBorderColor: "rgba(0, 0, 0, 0.15)",
 	},
 };
 
