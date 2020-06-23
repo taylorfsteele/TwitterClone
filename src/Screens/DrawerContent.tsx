@@ -1,40 +1,25 @@
-import React, { FC } from "react";
-import { View, StyleSheet } from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { DrawerActions } from "@react-navigation/native";
 import {
-	DrawerItem,
+	DrawerContentComponentProps,
 	DrawerContentScrollView,
-	DrawerNavigationProp,
+	DrawerItem,
 } from "@react-navigation/drawer";
 import {
 	Avatar,
-	Title,
 	Caption,
-	Paragraph,
 	Drawer,
-	Text,
-	TouchableRipple,
+	Paragraph,
 	Switch,
+	Text,
+	Title,
+	TouchableRipple,
 } from "react-native-paper";
-import { CompositeNavigationProp } from "@react-navigation/native";
-import { MaterialBottomTabNavigationProp } from "@react-navigation/material-bottom-tabs";
-import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { DrawerParamList, RootStackParamList } from "../types";
 
-type DrawerContentNavigationProp = CompositeNavigationProp<
-	MaterialBottomTabNavigationProp<DrawerParamList, "TabNavigator">,
-	CompositeNavigationProp<
-		StackNavigationProp<RootStackParamList>,
-		DrawerNavigationProp<DrawerParamList>
-	>
->;
-
-type NavigationProps = {
-	navigation: DrawerContentNavigationProp;
-};
-
-//Incorrect typing, issue being fixed on React Navigation now. Can type with DrawerContentComponentProps
-const DrawerContent = ({ navigation }: NavigationProps) => {
+//Gotta figure out how to pass param list as props
+const DrawerContent = ({ navigation }: DrawerContentComponentProps) => {
 	return (
 		<DrawerContentScrollView>
 			<View style={styles.drawerContent}>
@@ -66,7 +51,8 @@ const DrawerContent = ({ navigation }: NavigationProps) => {
 						)}
 						label="Profile"
 						onPress={() => {
-							navigation.closeDrawer();
+							// @see https://github.com/react-navigation/react-navigation/issues/6790
+							navigation.dispatch(DrawerActions.closeDrawer());
 							navigation.navigate("Profile");
 						}}
 					/>
@@ -76,7 +62,7 @@ const DrawerContent = ({ navigation }: NavigationProps) => {
 						)}
 						label="Preferences"
 						onPress={() => {
-							navigation.closeDrawer();
+							navigation.dispatch(DrawerActions.closeDrawer());
 							navigation.navigate("Preferences");
 						}}
 					/>
@@ -86,7 +72,7 @@ const DrawerContent = ({ navigation }: NavigationProps) => {
 						)}
 						label="Bookmarks"
 						onPress={() => {
-							navigation.closeDrawer();
+							navigation.dispatch(DrawerActions.closeDrawer());
 							navigation.navigate("Bookmarks");
 						}}
 					/>

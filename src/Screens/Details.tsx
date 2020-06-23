@@ -1,16 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { RouteProp } from "@react-navigation/native";
+import { FeedStackParamList } from "../types";
+import { DetailedTweet } from "../Components/DetailedTweet";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-interface DetailsProps {}
+type DetailsRouteProp = RouteProp<FeedStackParamList, "Details">;
+type DetailsNavigationProp = StackNavigationProp<FeedStackParamList, "Details">;
 
-const Details: React.FC<DetailsProps> = ({}) => {
-	return (
-		<View>
-			<Text>Details</Text>
-		</View>
-	);
+type Props = {
+	route: DetailsRouteProp;
+	navigation: DetailsNavigationProp;
 };
 
-const styles = StyleSheet.create({});
-
-export default Details;
+export const Details = (props: Props) => {
+	return <DetailedTweet {...props} />;
+};

@@ -17,7 +17,7 @@ type Props = {
 	handle: string;
 	date: string;
 	content: string;
-	image: string;
+	image: string | null;
 	avatar: string;
 	comments: number;
 	retweets: number;
@@ -27,7 +27,6 @@ type Props = {
 
 export const Tweet = (props: Props) => {
 	const { colors } = useTheme();
-	console.log(colors);
 
 	return (
 		<TouchableRipple onPress={() => props.onPress(props.id)}>
@@ -43,10 +42,12 @@ export const Tweet = (props: Props) => {
 						<Caption>{props.date}</Caption>
 					</View>
 					<Text style={{ color: colors.contentColor }}>{props.content}</Text>
-					<Image
-						source={{ uri: props.image }}
-						style={[styles.image, { borderColor: colors.imageBorderColor }]}
-					/>
+					{props.image ? (
+						<Image
+							source={{ uri: props.image }}
+							style={[styles.image, { borderColor: colors.imageBorderColor }]}
+						/>
+					) : null}
 					<View style={styles.bottomRow}>
 						<TouchableOpacity onPress={() => {}} hitSlop={{ top: 10, bottom: 10 }}>
 							<View style={styles.iconContainer}>

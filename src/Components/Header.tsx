@@ -1,11 +1,12 @@
 import React from "react";
-import { StackHeaderProps } from "@react-navigation/stack";
+import { StackHeaderProps, StackScreenProps } from "@react-navigation/stack";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { TouchableOpacity } from "react-native";
 import { Appbar, Avatar, useTheme } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FeedStackParamList } from "../types";
 
-const Header: React.FC<StackHeaderProps> = ({ scene, previous, navigation }) => {
+const Header = ({ scene, previous, navigation }: StackHeaderProps) => {
 	const theme = useTheme();
 	const { options } = scene.descriptor;
 	const title =
@@ -18,7 +19,7 @@ const Header: React.FC<StackHeaderProps> = ({ scene, previous, navigation }) => 
 	return (
 		<Appbar.Header theme={{ colors: { primary: theme.colors.surface } }}>
 			{previous ? (
-				<Appbar.BackAction onPress={() => navigation.pop()} />
+				<Appbar.BackAction color={theme.colors.primary} onPress={() => navigation.pop()} />
 			) : (
 				<TouchableOpacity
 					style={{ marginLeft: 10 }}
@@ -35,7 +36,40 @@ const Header: React.FC<StackHeaderProps> = ({ scene, previous, navigation }) => 
 					/>
 				</TouchableOpacity>
 			)}
-			<Appbar.Content
+			{title === "MainFeed" ? (
+				<>
+					<Appbar.Content
+						style={{ alignItems: "center" }}
+						title={
+							<MaterialCommunityIcons
+								color={theme.colors.primary}
+								size={40}
+								style={{ marginRight: 10 }}
+								name="twitter"
+							/>
+						}
+					/>
+					<Appbar.Action
+						icon={require("../../assets/githubLight.png")}
+						size={30}
+						color="black"
+						onPress={() => {}}
+					/>
+				</>
+			) : (
+				<Appbar.Content
+					title="Tweet"
+					titleStyle={{ fontSize: 18, fontWeight: "bold", color: theme.colors.primary }}
+				/>
+			)}
+		</Appbar.Header>
+	);
+};
+
+export default Header;
+
+{
+	/* <Appbar.Content
 				style={{ alignItems: "center" }}
 				title={
 					title === "MainFeed" ? (
@@ -54,11 +88,5 @@ const Header: React.FC<StackHeaderProps> = ({ scene, previous, navigation }) => 
 					fontWeight: "bold",
 					color: theme.colors.primary,
 				}}
-			/>
-
-			<Appbar.Action icon={require("../../assets/githubLight.png")} size={30} onPress={() => {}} />
-		</Appbar.Header>
-	);
-};
-
-export default Header;
+			/> */
+}

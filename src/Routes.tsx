@@ -2,9 +2,14 @@ import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
-import { DrawerParamList, MainTabsParamList, RootStackParamList } from "./types";
+import {
+	DrawerParamList,
+	MainTabsParamList,
+	RootStackParamList,
+	FeedStackParamList,
+} from "./types";
 import Bookmarks from "./Screens/Bookmarks";
-import Details from "./Screens/Details";
+import { Details } from "./Screens/Details";
 import DrawerContent from "./Screens/DrawerContent";
 import MainFeed from "./Screens/MainFeed";
 import Preferences from "./Screens/Preferences";
@@ -14,16 +19,15 @@ import Notifications from "./Screens/Notifications";
 import Messages from "./Screens/Messages";
 import { useTheme } from "react-native-paper";
 
-const FeedStack = createStackNavigator();
+const FeedStack = createStackNavigator<FeedStackParamList>();
 const FeedNavigator = () => {
 	return (
 		<FeedStack.Navigator
 			initialRouteName="MainFeed"
 			headerMode="screen"
 			screenOptions={{
-				header: ({ scene, previous, navigation }) => (
-					<Header scene={scene} previous={previous} navigation={navigation} />
-				),
+				cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+				header: (props) => <Header {...props} />,
 			}}
 		>
 			<FeedStack.Screen name="MainFeed" component={MainFeed} />
