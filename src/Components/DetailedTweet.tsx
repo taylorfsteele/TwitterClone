@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Surface, Title, Caption, Avatar, Subheading, useTheme } from "react-native-paper";
 import { FeedStackParamList } from "../types";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, ThemeProvider } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -18,7 +18,7 @@ export const DetailedTweet = (props: Props) => {
 	const { params } = props.route;
 	const { colors } = useTheme();
 	return (
-		<Surface style={styles.container}>
+		<Surface style={[styles.container, { backgroundColor: "rgba(0,0,0,0)" }]}>
 			<View style={styles.topRow}>
 				<Avatar.Image style={styles.avatar} source={{ uri: params.avatar }} size={60} />
 				<View>

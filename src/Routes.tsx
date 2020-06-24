@@ -15,61 +15,93 @@ import MainFeed from "./Screens/MainFeed";
 import Preferences from "./Screens/Preferences";
 import Profile from "./Screens/Profile";
 import Header from "./Components/Header";
-import Notifications from "./Screens/Notifications";
-import Messages from "./Screens/Messages";
-import { useTheme } from "react-native-paper";
+import { Notifications } from "./Screens/Notifications";
+import { Messages } from "./Screens/Messages";
+import { useTheme, Portal, FAB } from "react-native-paper";
+import { useIsFocused } from "@react-navigation/native";
 
 const FeedStack = createStackNavigator<FeedStackParamList>();
 const FeedNavigator = () => {
 	return (
 		<FeedStack.Navigator
-			initialRouteName="MainFeed"
+			initialRouteName="TabNavigator"
 			headerMode="screen"
 			screenOptions={{
 				cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 				header: (props) => <Header {...props} />,
 			}}
 		>
-			<FeedStack.Screen name="MainFeed" component={MainFeed} />
-			<FeedStack.Screen name="Details" component={Details} />
+			<FeedStack.Screen
+				name="TabNavigator"
+				component={TabNavigator}
+				options={({ route }) => {
+					const routeName = route.state ? route.state.routes[route.state.index].name : "MainFeed";
+					return { headerTitle: routeName };
+				}}
+			/>
+			<FeedStack.Screen name="Details" component={Details} options={{ headerTitle: "Tweet" }} />
 		</FeedStack.Navigator>
 	);
 };
 
 const Tab = createMaterialBottomTabNavigator<MainTabsParamList>();
-const TabNavigator = () => {
+const TabNavigator = ({ route }) => {
 	const { colors } = useTheme();
+	const isFocused = useIsFocused();
+	const routeName = route.state ? route.state.routes[route.state.index].name : "MainFeed";
+
+	let icon = "feather";
+
+	switch (routeName) {
+		case "Messages":
+			icon = "email-plus-outline";
+			break;
+		default:
+			icon = "feather";
+			break;
+	}
+
 	return (
-		<Tab.Navigator
-			initialRouteName="FeedNavigator"
-			sceneAnimationEnabled={false}
-			shifting={true}
-			activeColor={colors.primary}
-			barStyle={{ backgroundColor: colors.surface }}
-		>
-			<Tab.Screen
-				name="FeedNavigator"
-				component={FeedNavigator}
-				options={{
-					title: "Feed",
-					tabBarIcon: "home-account",
-				}}
-			/>
-			<Tab.Screen
-				name="Notifications"
-				component={Notifications}
-				options={{
-					tabBarIcon: "bell-outline",
-				}}
-			/>
-			<Tab.Screen
-				name="Messages"
-				component={Messages}
-				options={{
-					tabBarIcon: "message-text-outline",
-				}}
-			/>
-		</Tab.Navigator>
+		<>
+			<Tab.Navigator
+				initialRouteName="MainFeed"
+				sceneAnimationEnabled={false}
+				shifting={true}
+				activeColor={colors.primary}
+				barStyle={{ backgroundColor: colors.surface }}
+			>
+				<Tab.Screen
+					name="MainFeed"
+					component={MainFeed}
+					options={{
+						title: "Feed",
+						tabBarIcon: "home-account",
+					}}
+				/>
+				<Tab.Screen
+					name="Notifications"
+					component={Notifications}
+					options={{
+						tabBarIcon: "bell-outline",
+					}}
+				/>
+				<Tab.Screen
+					name="Messages"
+					component={Messages}
+					options={{
+						tabBarIcon: "message-text-outline",
+					}}
+				/>
+			</Tab.Navigator>
+			<Portal>
+				<FAB
+					visible={isFocused}
+					icon={icon}
+					style={{ position: "absolute", bottom: 100, right: 16, backgroundColor: colors.primary }}
+					color="white"
+				/>
+			</Portal>
+		</>
 	);
 };
 
@@ -77,7 +109,7 @@ const Drawer = createDrawerNavigator<DrawerParamList>();
 const DrawerNavigator = () => {
 	return (
 		<Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-			<Drawer.Screen name="TabNavigator" component={TabNavigator} />
+			<Drawer.Screen name="FeedNavigator" component={FeedNavigator} />
 		</Drawer.Navigator>
 	);
 };

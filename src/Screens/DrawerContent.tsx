@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 import { DrawerActions } from "@react-navigation/native";
 import {
@@ -17,9 +17,12 @@ import {
 	TouchableRipple,
 } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { PreferencesContext } from "../Context/preferencesContext";
 
 //Gotta figure out how to pass param list as props
 const DrawerContent = ({ navigation }: DrawerContentComponentProps) => {
+	const { theme, toggleTheme } = useContext(PreferencesContext);
+
 	return (
 		<DrawerContentScrollView>
 			<View style={styles.drawerContent}>
@@ -78,11 +81,11 @@ const DrawerContent = ({ navigation }: DrawerContentComponentProps) => {
 					/>
 				</Drawer.Section>
 				<Drawer.Section title="Preferences">
-					<TouchableRipple onPress={() => {}}>
+					<TouchableRipple onPress={toggleTheme}>
 						<View style={styles.preference}>
 							<Text>Dark Theme</Text>
 							<View pointerEvents="none">
-								<Switch value={false} />
+								<Switch value={theme === "dark"} />
 							</View>
 						</View>
 					</TouchableRipple>

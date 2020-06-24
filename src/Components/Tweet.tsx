@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		paddingTop: 15,
 		paddingRight: 15,
+		backgroundColor: "rgba(0,0,0,0)",
 	},
 	leftColumn: {
 		width: 100,

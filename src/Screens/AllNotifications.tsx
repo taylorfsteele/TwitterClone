@@ -1,16 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Text } from "react-native";
+import { useTheme } from "react-native-paper";
+import { NotificationTweet } from "../Components/NotificationTweet";
+import { mockNotificationTweets } from "../mockData";
 
-interface AllNotificationsProps {}
+type NotificationTweetProps = React.ComponentProps<typeof NotificationTweet>;
 
-const AllNotifications: React.FC<AllNotificationsProps> = ({}) => {
+export const AllNotifications = ({}) => {
+	const { colors } = useTheme();
+
 	return (
-		<View>
-			<Text>All Notifications</Text>
-		</View>
+		<FlatList
+			data={mockNotificationTweets}
+			renderItem={({ item }: { item: NotificationTweetProps }) => <NotificationTweet {...item} />}
+			keyExtractor={(item: NotificationTweetProps) => item.id.toString()}
+			contentContainerStyle={{ backgroundColor: colors.background }}
+			ItemSeparatorComponent={() => (
+				<View style={{ height: StyleSheet.hairlineWidth, backgroundColor: "lightgrey" }} />
+			)}
+		/>
 	);
 };
-
-const styles = StyleSheet.create({});
-
-export default AllNotifications;

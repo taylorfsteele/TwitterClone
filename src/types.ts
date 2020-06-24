@@ -6,17 +6,17 @@ export type RootStackParamList = {
 };
 
 export type DrawerParamList = {
-	TabNavigator: undefined;
+	FeedNavigator: undefined;
 };
 
 export type MainTabsParamList = {
-	FeedNavigator: undefined;
+	MainFeed: undefined;
 	Notifications: undefined;
 	Messages: undefined;
 };
 
 export type FeedStackParamList = {
-	MainFeed: undefined;
+	TabNavigator: undefined;
 	Details: {
 		id: number;
 		name: string;

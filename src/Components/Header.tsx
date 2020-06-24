@@ -17,7 +17,12 @@ const Header = ({ scene, previous, navigation }: StackHeaderProps) => {
 			: scene.route.name;
 
 	return (
-		<Appbar.Header theme={{ colors: { primary: theme.colors.surface } }}>
+		<Appbar.Header
+			style={[
+				{ backgroundColor: theme.colors.surface },
+				title === "Notifications" ? { shadowOpacity: 0, elevation: 0 } : null,
+			]}
+		>
 			{previous ? (
 				<Appbar.BackAction color={theme.colors.primary} onPress={() => navigation.pop()} />
 			) : (
@@ -52,14 +57,14 @@ const Header = ({ scene, previous, navigation }: StackHeaderProps) => {
 					<Appbar.Action
 						icon={require("../../assets/githubLight.png")}
 						size={30}
-						color="black"
+						color={theme.colors.text}
 						onPress={() => {}}
 					/>
 				</>
 			) : (
 				<Appbar.Content
-					title="Tweet"
-					titleStyle={{ fontSize: 18, fontWeight: "bold", color: theme.colors.primary }}
+					title={title === "Details" ? "Tweet" : title}
+					titleStyle={{ fontSize: 18, color: theme.colors.primary }}
 				/>
 			)}
 		</Appbar.Header>
