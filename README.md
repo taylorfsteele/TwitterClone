@@ -1,7 +1,7 @@
 # React Native Twitter Clone
 What portfolio is complete without a social media clone? This is built on React Native, runs on either Android or iOS.
 
-
+![](TwitterClone.gif)
 
 
 ## Usage
